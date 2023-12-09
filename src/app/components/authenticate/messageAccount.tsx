@@ -6,7 +6,7 @@ interface SignProps {
   highlightedText: string
 }
 
-export function Sign({ children, href, highlightedText }: SignProps) {
+export function MessageAccount({ children, href, highlightedText }: SignProps) {
   return (
     <div className="flex gap-2">
       <p>{children}</p>
