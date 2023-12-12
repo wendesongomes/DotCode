@@ -48,10 +48,8 @@ export function FormLogin() {
     })
   }
 
-  console.log(isError)
-
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="w-2/4">
+    <form onSubmit={handleSubmit(onSubmit)} className="sm:w-2/4 w-3/4 ">
       <div className="flex flex-col gap-2">
         <input
           type="email"

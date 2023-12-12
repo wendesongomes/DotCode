@@ -17,10 +17,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={`${fira.className} overflow-x-hidden`}>
-        <Providers>{children}</Providers>
-      </body>
-    </html>
+    <Providers>
+      <html lang="en">
+        <body className={`${fira.className} overflow-x-hidden bg-sto`}>
+          {children}
+        </body>
+      </html>
+    </Providers>
   )
 }

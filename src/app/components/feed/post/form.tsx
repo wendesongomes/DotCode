@@ -1,23 +1,30 @@
+import { zodResolver } from '@hookform/resolvers/zod'
 import { ArrowClockwise, PaperPlaneRight } from '@phosphor-icons/react'
 
 import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { z } from 'zod'
 
 interface FormProps {
   content: string
 }
 
+const schema = z.object({
+  content: z.string().min(1),
+})
+
 export function PostForm() {
-  const { data: session } = useSession()
-  const router = useRouter()
+  const { data: session, update } = useSession()
   const {
     register,
     handleSubmit,
     reset,
-    formState: { isSubmitting },
-  } = useForm<FormProps>()
+    formState: { isSubmitting, errors },
+  } = useForm<FormProps>({
+    mode: 'all',
+    resolver: zodResolver(schema),
+  })
   const [textareaHeight, setTextareaHeight] = useState<number>(60)
 
   if (session) {
@@ -34,20 +41,22 @@ export function PostForm() {
           id,
         }),
       })
+      await update()
       reset()
       if (!createPost.ok) {
         const { error } = await createPost.json()
         console.error('error:', error)
-      } else {
-        router.refresh()
       }
     }
 
+    const disabledTextArea = errors.content !== undefined
+
     return (
-      <div>
+      <>
         <form onSubmit={handleSubmit(onSubmit)}>
           <textarea
             {...register('content')}
+            disabled={disabledTextArea}
             onInput={autoResize}
             style={{ height: `${textareaHeight}px` }}
             className="w-full max-h-[400px] resize-none rounded-md bg-stone-900 outline-none p-4 placeholder:text-stone-700"
@@ -63,12 +72,16 @@ export function PostForm() {
                   className="animate-spin"
                 />
               ) : (
-                <PaperPlaneRight size={20} weight="fill" />
+                <PaperPlaneRight
+                  size={20}
+                  weight="fill"
+                  className={`${disabledTextArea && 'text-white/20'}`}
+                />
               )}
             </button>
           </div>
         </form>
-      </div>
+      </>
     )
   }
 }

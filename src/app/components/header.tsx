@@ -2,7 +2,7 @@ import { MagnifyingGlass } from '@phosphor-icons/react'
 
 export function Header() {
   return (
-    <header className="h-full w-full pt-10 flex lg:gap-10 xl:gap-20 gap-0 xl:justify-center justify-start">
+    <header className="h-full w-full my-2 flex lg:gap-10 xl:gap-20 gap-0 xl:justify-center justify-start">
       <div className="top-20 h-full xl:w-2/12 w-auto xl:items-start items-center xl:min-w-[200px] flex flex-col px-4 divide-y divide-stone-900">
         <p>.Code</p>
       </div>

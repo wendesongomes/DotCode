@@ -3,8 +3,8 @@ import {
   BookmarkSimple,
   ChatText,
   DotsThreeCircle,
-  Gear,
   SignOut,
+  User,
   UserCircle,
   UserList,
   Users,
@@ -14,78 +14,92 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from './ui/dropdown-menu'
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
+} from '../ui/dropdown-menu'
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import { House } from '@phosphor-icons/react/dist/ssr'
 import { signOut, useSession } from 'next-auth/react'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
+import Link from 'next/link'
 
 export function Nav() {
-  const { data: session } = useSession()
+  const { data: session, update } = useSession()
   const path = usePathname()
-  const router = useRouter()
+
+  const reload = async () => {
+    await update()
+  }
 
   if (session) {
     const { name, image, username, admin } = session.user
 
     return (
-      <nav className="sticky top-20 h-full xl:w-2/12 w-auto xl:items-start items-center xl:min-w-[200px] flex flex-col px-4 divide-y divide-stone-900">
+      <nav className="sticky top-5 h-full xl:w-2/12 w-auto xl:min-w-[200px] xl:items-start items-center flex flex-col px-4 divide-y divide-stone-900">
         <ul className="flex flex-col gap-4 pb-5 w-full max-w-[240px] xl:items-start items-center">
           <li>
-            <a
-              href="/"
-              className={`${
-                path === '/home' && 'text-amber-500'
-              } flex items-center gap-2`}
-            >
-              <House size={20} weight="fill" />
-              <p className="xl:block hidden">My Feed</p>
-            </a>
+            {path === '/home' ? (
+              <button
+                onClick={() => reload()}
+                className={`text-amber-500 flex items-center gap-2`}
+              >
+                <House size={20} weight="fill" />
+                <p className="xl:block hidden">My Feed</p>
+              </button>
+            ) : (
+              <Link href="/home" className={`flex items-center gap-2`}>
+                <House size={20} weight="fill" />
+                <p className="xl:block hidden">My Feed</p>
+              </Link>
+            )}
           </li>
           <li>
-            <a href="" className="flex items-center gap-2">
+            <Link href="" className="flex items-center gap-2">
               <Users size={20} weight="fill" />
               <p className="xl:block hidden">Groups</p>
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="" className="flex items-center gap-2">
+            <Link href="" className="flex items-center gap-2">
               <ChatText size={20} weight="fill" />
               <p className="xl:block hidden">Messages</p>
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="" className="flex items-center gap-2">
+            <Link href="" className="flex items-center gap-2">
               <BookmarkSimple size={20} weight="fill" />
               <p className="xl:block hidden">Saves</p>
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="" className="flex items-center gap-2">
+            <Link href="" className="flex items-center gap-2">
               <DotsThreeCircle size={20} weight="fill" />
               <p className="xl:block hidden">More</p>
-            </a>
+            </Link>
           </li>
         </ul>
 
         <ul className="flex flex-col xl:items-start items-center gap-4 py-5 w-full max-w-[240px]">
           <li>
-            <a href="" className="flex items-center gap-2">
-              <BellSimple size={20} weight="fill" />
-              <p className="xl:block hidden">Notifications</p>
-            </a>
+            <Link
+              href={`/${username}`}
+              className={`${
+                path === `/${username}` && 'text-amber-500'
+              } flex items-center gap-2`}
+            >
+              <User size={20} weight="fill" />
+              <p className="xl:block hidden">Perfil</p>
+            </Link>
           </li>
           <li>
-            <a href="" className="flex items-center gap-2">
-              <Gear size={20} weight="fill" />
-              <p className="xl:block hidden">Settings</p>
-            </a>
+            <Link href="" className="flex items-center gap-2">
+              <BellSimple size={20} weight="fill" />
+              <p className="xl:block hidden">Notifications</p>
+            </Link>
           </li>
         </ul>
 
         <ul className="flex pt-5 w-full max-w-[240px]">
           <li className="w-full flex xl:flex-row flex-col items-center justify-between gap-4">
-            <a href="" className="flex gap-4 items-center">
+            <Link href="" className="flex gap-4 items-center">
               {image === null ? (
                 <UserCircle size={40} weight="fill" />
               ) : (
@@ -103,7 +117,7 @@ export function Nav() {
                   @{username}
                 </p>
               </div>
-            </a>
+            </Link>
             <DropdownMenu>
               <DropdownMenuTrigger className="outline-none">
                 <DotsThreeCircle
@@ -114,13 +128,12 @@ export function Nav() {
               </DropdownMenuTrigger>
               <DropdownMenuContent className="p-2 rounded-md mt-2 border border-stone-800">
                 {admin && (
-                  <DropdownMenuItem
-                    className="outline-none flex gap-2 items-center text-sm hover:bg-stone-600 p-1 rounded-md transition-all duration-150 cursor-pointer"
-                    onClick={() => router.push('/admin/users')}
-                  >
-                    <UserList size={18} weight="fill" />
-                    Users
-                  </DropdownMenuItem>
+                  <Link href="/admin/users">
+                    <DropdownMenuItem className="outline-none flex gap-2 items-center text-sm hover:bg-stone-600 p-1 rounded-md transition-all duration-150 cursor-pointer">
+                      <UserList size={18} weight="fill" />
+                      Users
+                    </DropdownMenuItem>
+                  </Link>
                 )}
                 <DropdownMenuItem
                   className="outline-none cursor-pointer flex gap-2 items-center text-sm hover:bg-stone-600 p-1 rounded-md transition-all duration-150"

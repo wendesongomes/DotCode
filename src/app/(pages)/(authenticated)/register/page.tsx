@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function Register() {
   return (
-    <main className="w-full h-screen flex flex-col gap-8 min-w-[600px] justify-center items-center overflow-hidden">
+    <>
       <h1 className="sm:text-5xl text-4xl font-semibold">Welcome Back!</h1>
       <FormRegister />
 
@@ -20,7 +20,7 @@ export default function Register() {
         Already have an account?
       </MessageAccount>
 
-      <div className="w-2/4 flex flex-col gap-2">
+      <div className="sm:w-2/4 w-3/4 flex flex-col gap-2">
         <Button providers="google" alt="Google Logo" url="/google.svg">
           Continue with Google
         </Button>
@@ -28,6 +28,6 @@ export default function Register() {
           Continue with Github
         </Button>
       </div>
-    </main>
+    </>
   )
 }

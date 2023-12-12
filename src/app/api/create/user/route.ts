@@ -13,6 +13,7 @@ export const ExistingEmail = async (email: string) => {
 
 async function CreateUser(request: Request) {
   const { email, name, password, username } = await request.json()
+
   try {
     await prisma.user.create({
       data: {
@@ -28,6 +29,7 @@ async function CreateUser(request: Request) {
     if (error instanceof PrismaClientKnownRequestError) {
       if (error.code === 'P2002' && error.meta && error.meta.target) {
         if (Array.isArray(error.meta.target)) {
+          console.log({ error: error.meta.target.join(' ') })
           return NextResponse.json({ error: error.meta.target.join(' ') })
         }
       }

@@ -10,12 +10,10 @@ import {
 import { TrashSimple } from '@phosphor-icons/react'
 import { DotsThreeOutline } from '@phosphor-icons/react/dist/ssr'
 import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
 
 export default function Users() {
   const { data: session } = useSession()
-  const router = useRouter()
-  if (session && session.user.admin) {
+  if (session) {
     const users = session.allUsers
     return (
       <div className="h-full w-full lg:w-2/6 divide-y divide-stone-800 sm:min-w-[500px] lg:min-w-[600px] pr-10 flex flex-col gap-3">
@@ -50,7 +48,5 @@ export default function Users() {
         ))}
       </div>
     )
-  } else {
-    router.push('/home')
   }
 }

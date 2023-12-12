@@ -17,6 +17,18 @@ export const authOptions: NextAuthOptions = {
     async redirect({ baseUrl }) {
       return baseUrl
     },
+    async jwt({ token, user }) {
+      if (user) {
+        const userPrisma = await prisma.user.findUnique({
+          where: { email: String(user.email) },
+        })
+        return {
+          ...token,
+          admin: userPrisma?.admin,
+        }
+      }
+      return token
+    },
     async session({ session }) {
       const userPrisma = await prisma.user.findUnique({
         where: { email: String(session.user?.email) },
@@ -25,7 +37,13 @@ export const authOptions: NextAuthOptions = {
         },
       })
       const allUsers = await prisma.user.findMany()
+      const userPost = await prisma.post.findMany({
+        where: {
+          authorId: session.user.id,
+        },
+      })
       const post = await prisma.post.findMany({
+        orderBy: { id: 'desc' },
         include: { author: true, likes: true },
       })
       const like = await prisma.like.findMany({

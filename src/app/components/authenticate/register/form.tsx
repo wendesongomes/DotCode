@@ -83,17 +83,14 @@ export function FormRegister() {
     if (createUser.ok) {
       const { error } = await createUser.json()
       setAlreadyRegistered(error)
-      console.log(error)
       if (!error) {
         router.push('/login')
       }
     }
-
-    console.log(createUser.status)
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="w-2/4">
+    <form onSubmit={handleSubmit(onSubmit)} className="sm:w-2/4 w-3/4">
       <div className="flex flex-col gap-2">
         <input
           type="text"

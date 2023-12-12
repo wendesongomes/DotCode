@@ -1,6 +1,8 @@
-export function Aside() {
+export async function Aside() {
+  const delay = () => new Promise((resolve) => setTimeout(resolve, 200))
+  await delay()
   return (
-    <aside className="sticky top-20 h-full w-1/5 lg:flex hidden flex-col gap-2">
+    <aside className="sticky top-5 h-full w-1/5 lg:flex hidden flex-col gap-2">
       <div className="w-3/4 bg-stone-900 rounded-md min-w-[250px] p-4 flex flex-col gap-2">
         <p className="text-sm">Projeto em beta</p>
         <p className="text-xs text-stone-300 whitespace-pre-wrap">
