@@ -33,7 +33,10 @@ export function EditProfile({
   const schema = z
     .object({
       name: z.string().min(1, { message: 'Name is required' }),
-      username: z.string().min(1, { message: 'Username is required' }),
+      username: z
+        .string()
+        .toLowerCase()
+        .min(1, { message: 'Username is required' }),
     })
     .refine((fields) => /^[a-zA-Z0-9]+$/.test(fields.username), {
       path: ['username'],
