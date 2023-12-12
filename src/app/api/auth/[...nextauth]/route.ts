@@ -9,7 +9,7 @@ import { ExistingEmail } from '../../create/user/route'
 
 const prisma = new PrismaClient()
 
-export const authOptions: NextAuthOptions = {
+const authOptions: NextAuthOptions = {
   pages: {
     signIn: '/login',
   },
