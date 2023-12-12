@@ -5,7 +5,7 @@ import { PrismaClient } from '@prisma/client'
 import GoogleProvider from 'next-auth/providers/google'
 import GitHubProvider from 'next-auth/providers/github'
 import { v4 as uuidv4 } from 'uuid'
-import { ExistingEmail } from '../../create/user/route'
+import { ExistingEmail } from '@/app/services/existingEmail'
 
 const prisma = new PrismaClient()
 

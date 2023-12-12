@@ -4,13 +4,6 @@ import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library'
 
 const prisma = new PrismaClient()
 
-export const ExistingEmail = async (email: string) => {
-  const verifyEmail = await prisma.user.findUnique({ where: { email } })
-  if (verifyEmail === null) {
-    return true
-  }
-}
-
 async function CreateUser(request: Request) {
   const { email, name, password, username } = await request.json()
 
