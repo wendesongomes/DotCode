@@ -33,6 +33,6 @@ export default withAuth(middleware, callbackOptions)
 
 export const config = {
   matcher: [
-    '/((?!login|register|api/create/user|google.svg|man.jpeg|github.png).*)',
+    '/((?!login|register|api/create/user|google.svg|man.jpeg|github.png|api/auth/callback/google).*)',
   ],
 }
