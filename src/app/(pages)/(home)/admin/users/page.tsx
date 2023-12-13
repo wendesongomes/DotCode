@@ -33,7 +33,7 @@ export default function Users() {
                 <Link href={user.username} className="hover:underline">
                   {user.name}
                 </Link>
-                <p className="text-xs text-stone-600">{user.email}</p>
+                <p className="text-xs text-stone-500">{user.email}</p>
               </div>
             </div>
             <DropdownMenu>
