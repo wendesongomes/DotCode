@@ -1,7 +1,7 @@
 import { Button } from '@/app/components/authenticate/button'
 import { Divide } from '@/app/components/authenticate/divide'
 import { MessageAccount } from '@/app/components/authenticate/messageAccount'
-import { FormRegister } from '@/app/components/authenticate/register/form'
+import { FormRegister } from '@/app/components/authenticate/login/register/form'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
