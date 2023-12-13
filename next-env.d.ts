@@ -1,6 +1,3 @@
-/// <reference types="next" />
-/// <reference types="next/image-types/global" />
-
 import { Like, Post, User } from '@prisma/client'
 
 interface UserProps extends User {
@@ -8,7 +5,7 @@ interface UserProps extends User {
 }
 
 interface PostProps extends Post {
-  author: User
+  author: UserProps
   likes: Like[]
 }
 
@@ -17,6 +14,6 @@ declare module 'next-auth' {
     user: UserProps
     post: PostProps[]
     like: Like[]
-    allUsers: User[]
+    allUsers: UserProps[]
   }
 }
