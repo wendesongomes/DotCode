@@ -76,13 +76,10 @@ export function FormRegister() {
   })
 
   const onSubmit: SubmitHandler<FormProps> = async (data) => {
-    const createUser = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/create/user`,
-      {
-        method: 'POST',
-        body: JSON.stringify(data),
-      },
-    )
+    const createUser = await fetch(`/api/create/user`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+    })
     if (createUser.ok) {
       const { error } = await createUser.json()
       setAlreadyRegistered(error)
