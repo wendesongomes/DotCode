@@ -10,6 +10,7 @@ import {
 import { TrashSimple } from '@phosphor-icons/react'
 import { DotsThreeOutline } from '@phosphor-icons/react/dist/ssr'
 import { useSession } from 'next-auth/react'
+import Link from 'next/link'
 
 export default function Users() {
   const { data: session } = useSession()
@@ -29,7 +30,9 @@ export default function Users() {
                 <AvatarFallback>{user.name}</AvatarFallback>
               </Avatar>
               <div>
-                <p>{user.name}</p>
+                <Link href={user.username}>
+                  <p className='hover:outline'>{user.name}</p>
+                </Link>
                 <p className="text-xs text-stone-600">{user.email}</p>
               </div>
             </div>
