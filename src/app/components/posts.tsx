@@ -14,10 +14,10 @@ import {
   DropdownMenuTrigger,
 } from './ui/dropdown-menu'
 import { Likes } from './feed/likes'
-import { PostProps, UserProps } from '../../../next-env'
 import DelPost from '../services/deletePost'
 import { useSession } from 'next-auth/react'
 import postTime from '../services/postTime'
+import { PostProps, UserProps } from '../../../global'
 
 interface PostsProps {
   posts: PostProps[]

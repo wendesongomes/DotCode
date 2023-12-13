@@ -1,19 +1,5 @@
-import { Like, Post, User } from '@prisma/client'
+/// <reference types="next" />
+/// <reference types="next/image-types/global" />
 
-interface UserProps extends User {
-  likes: Like[]
-}
-
-interface PostProps extends Post {
-  author: UserProps
-  likes: Like[]
-}
-
-declare module 'next-auth' {
-  interface Session {
-    user: UserProps
-    post: PostProps[]
-    like: Like[]
-    allUsers: UserProps[]
-  }
-}
+// NOTE: This file should not be edited
+// see https://nextjs.org/docs/basic-features/typescript for more information.

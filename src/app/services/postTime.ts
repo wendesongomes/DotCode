@@ -1,4 +1,4 @@
-import { PostProps } from '../../../next-env'
+import { PostProps } from '../../../global'
 
 const postTime = (id: number, posts: PostProps[]) => {
   const post = posts.find((post) => post.id === id)
