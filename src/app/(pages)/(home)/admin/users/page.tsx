@@ -17,6 +17,10 @@ export default function Users() {
     const users = session.allUsers
     return (
       <div className="h-full w-full lg:w-2/6 divide-y divide-stone-800 sm:min-w-[500px] lg:min-w-[600px] pr-10 flex flex-col gap-3">
+        <div className="w-full justify-between">
+          <p>Total users</p>
+          <p>{users.length}</p>
+        </div>
         {users.map((user) => (
           <div key={user.id} className="flex py-2 justify-between">
             <div className="flex gap-2 items-center ">

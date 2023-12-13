@@ -36,7 +36,11 @@ const authOptions: NextAuthOptions = {
           likes: true,
         },
       })
-      const allUsers = await prisma.user.findMany()
+      const allUsers = await prisma.user.findMany({
+        orderBy: {
+          name: 'asc',
+        },
+      })
 
       const post = await prisma.post.findMany({
         orderBy: { id: 'desc' },
