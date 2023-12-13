@@ -49,4 +49,6 @@ export default function Users() {
       </div>
     )
   }
+
+  return null
 }
