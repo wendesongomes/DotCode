@@ -37,11 +37,7 @@ const authOptions: NextAuthOptions = {
         },
       })
       const allUsers = await prisma.user.findMany()
-      const userPost = await prisma.post.findMany({
-        where: {
-          authorId: session.user.id,
-        },
-      })
+
       const post = await prisma.post.findMany({
         orderBy: { id: 'desc' },
         include: { author: true, likes: true },
