@@ -30,8 +30,8 @@ export default function Users() {
                 <AvatarFallback>{user.name}</AvatarFallback>
               </Avatar>
               <div>
-                <Link href={user.username}>
-                  <p className='hover:outline'>{user.name}</p>
+                <Link href={`/${user.username}`}>
+                  <p className='hover:underline'>{user.name}</p>
                 </Link>
                 <p className="text-xs text-stone-600">{user.email}</p>
               </div>
