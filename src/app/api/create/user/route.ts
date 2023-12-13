@@ -27,6 +27,7 @@ async function CreateUser(request: Request) {
         }
       }
     }
+    return NextResponse.json({ error: 'Error server' })
   } finally {
     prisma.$disconnect()
   }
