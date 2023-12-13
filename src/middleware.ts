@@ -32,5 +32,7 @@ const callbackOptions: NextAuthMiddlewareOptions = {}
 export default withAuth(middleware, callbackOptions)
 
 export const config = {
-  matcher: ['/((?!login|register|api/create/user|google.svg|man.jpeg).*)'],
+  matcher: [
+    '/((?!login|register|api/create/user|google.svg|man.jpeg|github.png).*)',
+  ],
 }
