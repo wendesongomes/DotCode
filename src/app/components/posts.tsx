@@ -27,9 +27,6 @@ interface PostsProps {
 
 export default function Posts({ posts, user }: PostsProps) {
   const { update } = useSession()
-  useEffect(() => {
-    update()
-  }, [])
   if (posts.length) {
     return (
       <section className="flex w-full flex-col gap-4 justify-center items-center">
