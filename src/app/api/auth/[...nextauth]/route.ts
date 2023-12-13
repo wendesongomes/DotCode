@@ -66,7 +66,7 @@ const authOptions: NextAuthOptions = {
           allUsers,
         }
       }
-      return { session, post, like, allUsers }
+      return { ...session, post, like, allUsers }
     },
     async signIn({ user, account }) {
       if (account?.provider !== 'credentials') {
