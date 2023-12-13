@@ -1,4 +1,5 @@
-import { Like, Post, User } from '@prisma/client'
+import { Like, Post, User } from "@prisma/client"
+
 
 interface UserProps extends User {
   likes: Like[]
