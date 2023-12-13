@@ -46,10 +46,8 @@ export function Nav() {
               </button>
             ) : (
               <Link href="/home" className={`flex items-center gap-2`}>
-                <a>
-                  <House size={20} weight="fill" />
-                  <p className="xl:block hidden">My Feed</p>
-                </a>
+                <House size={20} weight="fill" />
+                <p className="xl:block hidden">My Feed</p>
               </Link>
             )}
           </li>
@@ -87,10 +85,8 @@ export function Nav() {
                 path === `/${username}` && 'text-amber-500'
               } flex items-center gap-2`}
             >
-              <a>
-                <User size={20} weight="fill" />
-                <p className="xl:block hidden">Perfil</p>
-              </a>
+              <User size={20} weight="fill" />
+              <p className="xl:block hidden">Perfil</p>
             </Link>
           </li>
           <li>
