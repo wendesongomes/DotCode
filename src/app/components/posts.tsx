@@ -18,7 +18,6 @@ import DelPost from '../services/deletePost'
 import { useSession } from 'next-auth/react'
 import postTime from '../services/postTime'
 import { PostProps, UserProps } from '../../../global'
-import { useEffect } from 'react'
 
 interface PostsProps {
   posts: PostProps[]

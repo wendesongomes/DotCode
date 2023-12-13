@@ -45,7 +45,11 @@ export function Nav() {
                 <p className="xl:block hidden">My Feed</p>
               </button>
             ) : (
-              <Link href="/home" className={`flex items-center gap-2`}>
+              <Link
+                onClick={() => reload()}
+                href="/home"
+                className={`flex items-center gap-2`}
+              >
                 <House size={20} weight="fill" />
                 <p className="xl:block hidden">My Feed</p>
               </Link>
