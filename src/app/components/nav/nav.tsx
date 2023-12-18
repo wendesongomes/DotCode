@@ -56,25 +56,31 @@ export function Nav() {
             )}
           </li>
           <li>
-            <Link href="" className="flex items-center gap-2">
+            <Link href="" className="flex items-center gap-2 text-stone-800">
               <Users size={20} weight="fill" />
               <p className="xl:block hidden">Groups</p>
             </Link>
           </li>
           <li>
-            <Link href="" className="flex items-center gap-2">
+            <Link href="" className="flex items-center gap-2 text-stone-800">
               <ChatText size={20} weight="fill" />
               <p className="xl:block hidden">Messages</p>
             </Link>
           </li>
           <li>
-            <Link href="" className="flex items-center gap-2">
+            <Link
+              href="/i/saves"
+              onClick={() => reload()}
+              className={`${
+                path === `/i/saves` && 'text-amber-500'
+              } flex items-center gap-2`}
+            >
               <BookmarkSimple size={20} weight="fill" />
               <p className="xl:block hidden">Saves</p>
             </Link>
           </li>
           <li>
-            <Link href="" className="flex items-center gap-2">
+            <Link href="" className="flex items-center gap-2 text-stone-800">
               <DotsThreeCircle size={20} weight="fill" />
               <p className="xl:block hidden">More</p>
             </Link>
@@ -94,7 +100,7 @@ export function Nav() {
             </Link>
           </li>
           <li>
-            <Link href="" className="flex items-center gap-2">
+            <Link href="" className="flex items-center gap-2 text-stone-800">
               <BellSimple size={20} weight="fill" />
               <p className="xl:block hidden">Notifications</p>
             </Link>

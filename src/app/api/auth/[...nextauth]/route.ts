@@ -34,8 +34,10 @@ const authOptions: NextAuthOptions = {
         where: { email: String(session.user?.email) },
         include: {
           likes: true,
+          saves: true,
         },
       })
+
       const allUsers = await prisma.user.findMany({
         orderBy: {
           name: 'asc',
@@ -44,8 +46,19 @@ const authOptions: NextAuthOptions = {
 
       const post = await prisma.post.findMany({
         orderBy: { id: 'desc' },
-        include: { author: true, likes: true },
+        include: {
+          author: true,
+          likes: true,
+          childPosts: {
+            include: {
+              likes: true,
+              author: true,
+              saves: true,
+            },
+          },
+        },
       })
+
       const like = await prisma.like.findMany({
         include: { post: true },
       })
@@ -64,6 +77,7 @@ const authOptions: NextAuthOptions = {
             createAt: userPrisma.createdAt,
             updatedAt: userPrisma.updatedAt,
             likes: userPrisma.likes,
+            saves: userPrisma.saves,
           },
           post,
           like,

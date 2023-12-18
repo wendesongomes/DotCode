@@ -1,13 +1,15 @@
-import { Like, Post, User } from "@prisma/client"
-
+import { Like, Post, Saves, User } from '@prisma/client'
 
 interface UserProps extends User {
   likes: Like[]
+  saves: Saves[]
 }
 
 interface PostProps extends Post {
   author: UserProps
   likes: Like[]
+  saves: Saves[]
+  childPosts: PostProps[]
 }
 
 declare module 'next-auth' {
@@ -16,5 +18,6 @@ declare module 'next-auth' {
     post: PostProps[]
     like: Like[]
     allUsers: UserProps[]
+    saves: Saves[]
   }
 }

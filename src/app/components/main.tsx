@@ -6,7 +6,7 @@ import { Loading } from './feed/loading'
 export function Main() {
   return (
     <>
-      <PostForm />
+      <PostForm placeholder="New Post" url="/api/create/post" />
       <Suspense fallback={<Loading />}>
         <Feed />
       </Suspense>

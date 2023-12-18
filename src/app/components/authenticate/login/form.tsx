@@ -19,13 +19,14 @@ const schema = z.object({
     .toLowerCase()
     .min(1, { message: 'Email is required' })
     .email({ message: 'It has to be an email' }),
-  password: z.string().min(1, { message: 'Password is required' }),
+  password: z.string().min(2, { message: 'Password is required' }),
 })
 
 export function FormLogin() {
   const [viewPassword, setViewPassword] = useState(false)
   const [isError, setIsError] = useState(false)
   const router = useRouter()
+
   const {
     register,
     handleSubmit,
@@ -95,10 +96,10 @@ export function FormLogin() {
         )}
         <button
           disabled={isSubmitting}
-          type="submit"
           className={`p-3 rounded-lg text-white/90 text-sm outline-none hover:bg-stone-950 transition-all duration-200 ${
             isSubmitting ? 'bg-stone-400' : 'bg-stone-900'
           }`}
+          type="submit"
         >
           {isSubmitting ? 'Logging in...' : 'Login'}
         </button>

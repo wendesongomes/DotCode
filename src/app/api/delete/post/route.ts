@@ -6,6 +6,11 @@ const prisma = new PrismaClient()
 async function DeletePost(request: Request) {
   const { id } = await request.json()
   try {
+    await prisma.saves.deleteMany({
+      where: {
+        postId: id,
+      },
+    })
     await prisma.post.deleteMany({
       where: {
         id,

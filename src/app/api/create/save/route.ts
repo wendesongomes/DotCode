@@ -3,10 +3,10 @@ import { NextResponse } from 'next/server'
 
 const prisma = new PrismaClient()
 
-async function Like(request: Request) {
+async function SavePost(request: Request) {
   const { userId, postId } = await request.json()
 
-  const existingLike = await prisma.like.findUnique({
+  const existingSaves = await prisma.saves.findUnique({
     where: {
       userId_postId: {
         userId,
@@ -15,8 +15,8 @@ async function Like(request: Request) {
     },
   })
 
-  if (existingLike) {
-    await prisma.like.delete({
+  if (existingSaves) {
+    await prisma.saves.delete({
       where: {
         userId_postId: {
           userId,
@@ -24,9 +24,10 @@ async function Like(request: Request) {
         },
       },
     })
+
     return new NextResponse()
   } else {
-    await prisma.like.create({
+    await prisma.saves.create({
       data: {
         userId,
         postId,
@@ -36,4 +37,4 @@ async function Like(request: Request) {
   }
 }
 
-export { Like as GET, Like as POST }
+export { SavePost as POST, SavePost as GET }

@@ -4,13 +4,14 @@ import { NextResponse } from 'next/server'
 const prisma = new PrismaClient()
 
 async function CreatePost(request: Request) {
-  const { content, id } = await request.json()
+  const { content, id, postId } = await request.json()
   try {
     await prisma.post.create({
       data: {
         content,
         authorId: id,
         published: true,
+        parentId: postId,
       },
     })
     return NextResponse.json({ create: 'Criado com sucesso' })

@@ -1,7 +1,6 @@
 import {
   DotsThreeOutline,
   SealCheck,
-  SmileySad,
   TrashSimple,
   UserCircle,
 } from '@phosphor-icons/react'
@@ -13,27 +12,32 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu'
-import { Likes } from './feed/likes'
 import DelPost from '../services/deletePost'
 import { useSession } from 'next-auth/react'
 import postTime from '../services/postTime'
 import { PostProps, UserProps } from '../../../global'
+import { Interactive } from './feed/post/interactive/interactive'
+import { useState } from 'react'
 
 interface PostsProps {
   posts: PostProps[]
   user: UserProps
+  children?: React.ReactNode
 }
 
-export default function Posts({ posts, user }: PostsProps) {
+export default function Posts({ posts, user, children }: PostsProps) {
   const { update } = useSession()
+  const [modal, setModal] = useState(false)
+
   if (posts.length) {
     return (
       <section className="flex w-full flex-col gap-4 justify-center items-center">
         <div className="flex flex-col w-full items-center justify-center gap-2 text-stone-600">
           {posts.map((post) => (
-            <div
+            <Link
+              href={modal ? '' : `/${post.author.username}/post/${post.id}`}
               key={post.id}
-              className="w-full h-auto text-white border border-stone-800 rounded-md p-4 flex gap-3 flex-col"
+              className="w-full h-auto text-white border border-stone-800 rounded-md p-4 flex gap-3 flex-col hover:bg-stone-900 transition-all"
             >
               <div className="flex gap-3 w-full">
                 {post.author.image ? (
@@ -44,7 +48,7 @@ export default function Posts({ posts, user }: PostsProps) {
                 ) : (
                   <UserCircle size={40} weight="fill" />
                 )}
-                <div className="w-full ">
+                <div className="w-full">
                   <div className="flex justify-between w-full items-center">
                     <div className="flex sm:flex-row sm:max-w-[460px] max-w-[200px] flex-col sm:gap-2 gap-0 text-ellipsis whitespace-nowrap overflow-hidden ">
                       <div className="flex gap-2 items-center">
@@ -67,7 +71,7 @@ export default function Posts({ posts, user }: PostsProps) {
                       </p>
                     </div>
                     {(user.admin || user.id === post.authorId) && (
-                      <DropdownMenu>
+                      <DropdownMenu onOpenChange={setModal}>
                         <DropdownMenuTrigger className="outline-none">
                           <DotsThreeOutline
                             size={20}
@@ -92,31 +96,22 @@ export default function Posts({ posts, user }: PostsProps) {
                   </p>
                 </div>
               </div>
-              <div className="whitespace-pre-wrap sm:text-base text-sm">
+              <p className="whitespace-pre-wrap text-sm prose-slate">
                 {post.content}
-              </div>
-              <div className="flex gap-3 items-center">
-                <Likes
-                  isLike={user.likes.some(({ postId }) => postId === post.id)}
-                  postId={post.id}
-                  countLikes={post.likes.length}
-                />
-              </div>
-            </div>
+              </p>
+              <Interactive
+                isLike={user.likes.some(({ postId }) => postId === post.id)}
+                isSave={user.saves.some(({ postId }) => postId === post.id)}
+                postId={post.id}
+                countLikes={post.likes.length}
+                username={user.username}
+              />
+            </Link>
           ))}
         </div>
       </section>
     )
   } else {
-    return (
-      <div>
-        <section className="flex flex-col gap-4 justify-center items-center">
-          <div className="flex flex-col items-center justify-center gap-2 mt-4 text-stone-600">
-            <SmileySad size={20} weight="fill" />
-            <p>Nenhum post encontrado</p>
-          </div>
-        </section>
-      </div>
-    )
+    return <div>{children}</div>
   }
 }

@@ -22,7 +22,6 @@ async function CreateUser(request: Request) {
     if (error instanceof PrismaClientKnownRequestError) {
       if (error.code === 'P2002' && error.meta && error.meta.target) {
         if (Array.isArray(error.meta.target)) {
-          console.log({ error: error.meta.target.join(' ') })
           return NextResponse.json({ error: error.meta.target.join(' ') })
         }
       }

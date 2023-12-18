@@ -76,16 +76,20 @@ export function FormRegister() {
   })
 
   const onSubmit: SubmitHandler<FormProps> = async (data) => {
-    const createUser = await fetch(`/api/create/user`, {
-      method: 'POST',
-      body: JSON.stringify(data),
-    })
-    if (createUser.ok) {
-      const { error } = await createUser.json()
-      setAlreadyRegistered(error)
-      if (!error) {
-        router.push('/login')
+    if (data.username !== 'login' && data.username !== 'register') {
+      const createUser = await fetch(`/api/create/user`, {
+        method: 'POST',
+        body: JSON.stringify(data),
+      })
+      if (createUser.ok) {
+        const { error } = await createUser.json()
+        setAlreadyRegistered(error)
+        if (!error) {
+          router.push('/login')
+        }
       }
+    } else {
+      setAlreadyRegistered('username')
     }
   }
 

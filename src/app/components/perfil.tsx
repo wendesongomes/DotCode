@@ -13,8 +13,9 @@ export function Perfil({ users }: { users: string }) {
     if (user) {
       const userLogged = session.user
       const { image, name, username, id, verified } = user
-      const posts = session.post.filter(({ authorId }) => authorId === id)
-      // const likes = session.like.filter(({ userId }) => userId === id)
+      const posts = session.post.filter(
+        ({ authorId, parentId }) => authorId === id && parentId === null,
+      )
 
       return (
         <>
