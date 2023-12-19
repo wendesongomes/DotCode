@@ -12,6 +12,7 @@ import { useSession } from 'next-auth/react'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import postTime from '@/app/services/postTime'
 import { PostForm } from '../feed/post/form'
+import { useState } from 'react'
 
 interface FormProps {
   postId: number
@@ -20,13 +21,18 @@ interface FormProps {
 
 export function CommentsPost({ postId, post }: FormProps) {
   const { data: session } = useSession()
+  const [isModalClosed, setIsModalClosed] = useState(false)
+
+  const handleClosedModal = (isClosed: boolean) => {
+    setIsModalClosed(isClosed)
+  }
 
   if (session) {
     const user = session.user
     const postComment = session.post.find(({ id }) => id === postId)
     if (postComment) {
       return (
-        <Dialog>
+        <Dialog open={isModalClosed} onOpenChange={setIsModalClosed}>
           <DialogTrigger asChild>
             <div className="flex justify-center items-center">
               <ChatDots
@@ -94,7 +100,8 @@ export function CommentsPost({ postId, post }: FormProps) {
                   <PostForm
                     placeholder="Post your answer"
                     url="/api/create/post"
-                    postId={25}
+                    postId={postId}
+                    onCloseModal={handleClosedModal}
                   />
                 </div>
               </div>

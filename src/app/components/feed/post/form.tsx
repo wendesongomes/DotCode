@@ -17,9 +17,17 @@ interface PostFormProps {
   placeholder: string
   url: string
   postId?: number
+  enableUpdate?: boolean
+  onCloseModal?: (isClosed: boolean) => void
 }
 
-export function PostForm({ placeholder, url, postId }: PostFormProps) {
+export function PostForm({
+  placeholder,
+  url,
+  postId,
+  enableUpdate,
+  onCloseModal,
+}: PostFormProps) {
   const { data: session, update } = useSession()
 
   const {
@@ -35,6 +43,7 @@ export function PostForm({ placeholder, url, postId }: PostFormProps) {
     },
   })
   const [textareaHeight, setTextareaHeight] = useState<number>(60)
+  const [closeModal, setCloseModal] = useState(false)
 
   if (session) {
     const { id } = session.user
@@ -51,11 +60,17 @@ export function PostForm({ placeholder, url, postId }: PostFormProps) {
           postId,
         }),
       })
-      await update()
+      if (enableUpdate) await update()
       reset()
       if (!createPost.ok) {
         const { error } = await createPost.json()
         console.error('error:', error)
+      } else {
+        setCloseModal(true)
+
+        if (onCloseModal) {
+          onCloseModal(closeModal)
+        }
       }
     }
 

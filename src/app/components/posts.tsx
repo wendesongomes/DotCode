@@ -18,6 +18,7 @@ import postTime from '../services/postTime'
 import { PostProps, UserProps } from '../../../global'
 import { Interactive } from './feed/post/interactive/interactive'
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 interface PostsProps {
   posts: PostProps[]
@@ -28,16 +29,21 @@ interface PostsProps {
 export default function Posts({ posts, user, children }: PostsProps) {
   const { update } = useSession()
   const [modal, setModal] = useState(false)
+  const router = useRouter()
 
   if (posts.length) {
     return (
       <section className="flex w-full flex-col gap-4 justify-center items-center">
         <div className="flex flex-col w-full items-center justify-center gap-2 text-stone-600">
           {posts.map((post) => (
-            <Link
-              href={modal ? '' : `/${post.author.username}/post/${post.id}`}
+            <div
+              onClick={() => {
+                !modal &&
+                  router.push(`/${post.author.username}/post/${post.id}`)
+                update()
+              }}
               key={post.id}
-              className="w-full h-auto text-white border border-stone-800 rounded-md p-4 flex gap-3 flex-col hover:bg-stone-900 transition-all"
+              className="w-full cursor-pointer h-auto text-white border border-stone-800 rounded-md p-4 flex gap-3 flex-col hover:bg-stone-900 transition-all"
             >
               <div className="flex gap-3 w-full">
                 {post.author.image ? (
@@ -106,7 +112,7 @@ export default function Posts({ posts, user, children }: PostsProps) {
                 countLikes={post.likes.length}
                 username={user.username}
               />
-            </Link>
+            </div>
           ))}
         </div>
       </section>

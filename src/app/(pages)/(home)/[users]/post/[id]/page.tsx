@@ -132,6 +132,7 @@ export default function Page({
               placeholder="Post your answer"
               url="/api/create/post"
               postId={Number(params.id)}
+              enableUpdate
             />
             <Posts posts={post.childPosts} user={user} />
           </div>

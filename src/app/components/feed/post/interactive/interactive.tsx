@@ -17,7 +17,10 @@ export function Interactive({
   isSave,
 }: InteractiveProps) {
   return (
-    <div className="flex sm:gap-3 gap-0 items-center justify-between">
+    <div
+      onClick={(e) => e.stopPropagation()}
+      className="flex sm:gap-3 gap-0 items-center justify-between"
+    >
       <Comments postId={postId} />
       <Repost />
       <Likes isLike={isLike} postId={postId} countLikes={countLikes} />
