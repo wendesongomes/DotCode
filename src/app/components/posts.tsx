@@ -1,5 +1,6 @@
 import {
   DotsThreeOutline,
+  PushPinSimple,
   SealCheck,
   TrashSimple,
   UserCircle,
@@ -31,17 +32,17 @@ export default function Posts({ posts, user, children }: PostsProps) {
   const [modal, setModal] = useState(false)
   const router = useRouter()
 
+  const handleClickPost = async (post: PostProps) => {
+    !modal && router.push(`/${post.author.username}/post/${post.id}`)
+  }
+
   if (posts.length) {
     return (
       <section className="flex w-full flex-col gap-4 justify-center items-center">
         <div className="flex flex-col w-full items-center justify-center gap-2 text-stone-600">
           {posts.map((post) => (
             <div
-              onClick={() => {
-                !modal &&
-                  router.push(`/${post.author.username}/post/${post.id}`)
-                update()
-              }}
+              onClick={() => handleClickPost(post)}
               key={post.id}
               className="w-full cursor-pointer h-auto text-white border border-stone-800 rounded-md p-4 flex gap-3 flex-col hover:bg-stone-900 transition-all"
             >
@@ -59,6 +60,7 @@ export default function Posts({ posts, user, children }: PostsProps) {
                     <div className="flex sm:flex-row sm:max-w-[460px] max-w-[200px] flex-col sm:gap-2 gap-0 text-ellipsis whitespace-nowrap overflow-hidden ">
                       <div className="flex gap-2 items-center">
                         <Link
+                          onClick={(e) => e.stopPropagation()}
                           href={`/${post.author.username}`}
                           className="hover:underline sm:max-w-full max-w-[150px] text-ellipsis whitespace-nowrap overflow-hidden"
                         >
@@ -86,6 +88,10 @@ export default function Posts({ posts, user, children }: PostsProps) {
                           />
                         </DropdownMenuTrigger>
                         <DropdownMenuContent className="p-2 rounded-md mt-2 border border-stone-800 bg-transparent">
+                          <DropdownMenuItem className="outline-none flex gap-2 text-emerald-500 hover:bg- justify-center items-center text-sm p-1 rounded-md transition-all duration-150 cursor-pointer">
+                            <PushPinSimple size={20} weight="fill" />
+                            Fixed Post
+                          </DropdownMenuItem>
                           <DropdownMenuItem
                             className="outline-none flex gap-2 text-red-500 hover:bg- justify-center items-center text-sm p-1 rounded-md transition-all duration-150 cursor-pointer"
                             onClick={() => DelPost(post.id, update)}
