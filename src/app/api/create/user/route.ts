@@ -22,16 +22,16 @@ async function CreateUser(request: Request) {
       },
     })
 
-    await resend.emails.send({
-      from: 'devcode@resend.dev',
-      to: email,
-      subject: 'Confirm your email',
-      html: '',
-      react: EmailTemplate({
-        userFirstname: name,
-        tokenConfirm: uuidv4().toString(),
-      }),
-    })
+    // await resend.emails.send({
+    //   from: 'devcode@resend.dev',
+    //   to: email,
+    //   subject: 'Confirm your email',
+    //   html: '',
+    //   react: EmailTemplate({
+    //     userFirstname: name,
+    //     tokenConfirm: uuidv4().toString(),
+    //   }),
+    // })
 
     return NextResponse.json({ create: 'Criado com sucesso' })
   } catch (error) {
