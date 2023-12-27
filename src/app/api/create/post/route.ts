@@ -44,6 +44,7 @@ async function CreatePost(request: Request) {
 
     return NextResponse.json({ create: 'Criado com sucesso' })
   } catch (error) {
+    console.log(error)
     return NextResponse.json({ error })
   } finally {
     prisma.$disconnect()
