@@ -103,7 +103,7 @@ export function PostForm({
             disabled={disabledTextArea}
             onInput={autoResize}
             style={{ height: `${textareaHeight}px` }}
-            className="w-full h-auto resize-none max-h-[400px] pt-4 min-h-[60px] rounded-md bg-stone-900 outline-none px-4  placeholder:text-stone-700"
+            className="w-full h-auto resize-none max-h-[401px] pt-4 min-h-[60px] rounded-md bg-stone-900 outline-none px-4  placeholder:text-stone-700"
             placeholder={placeholder}
           />
           {selectedImage && (
