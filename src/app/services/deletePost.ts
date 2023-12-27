@@ -1,8 +1,9 @@
-const DelPost = async (id: number, update: () => void) => {
+const DelPost = async (id: number, update: () => void, image?: string) => {
   const createPost = await fetch('/api/delete/post', {
     method: 'POST',
     body: JSON.stringify({
       id,
+      image,
     }),
   })
   await update()

@@ -117,7 +117,14 @@ export default function Page({
                 </p>
               </div>
             </div>
-            <p className="whitespace-pre-wrap text-sm">{post.content}</p>
+            <div className="flex flex-col gap-2">
+              <p className="whitespace-pre-wrap text-sm prose-slate">
+                {post.content}
+              </p>
+              {post.image && (
+                <img src={post.image} alt="" className="rounded-md" />
+              )}
+            </div>
 
             <Interactive
               isLike={user.likes.some(

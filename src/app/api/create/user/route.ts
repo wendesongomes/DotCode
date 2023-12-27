@@ -1,6 +1,11 @@
 import { NextResponse } from 'next/server'
 import { PrismaClient } from '@prisma/client'
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library'
+import { Resend } from 'resend'
+import EmailTemplate from '@/app/services/emailTemplate'
+import { v4 as uuidv4 } from 'uuid'
+
+const resend = new Resend(process.env.RESEND_API_KEY)
 
 const prisma = new PrismaClient()
 
@@ -15,6 +20,17 @@ async function CreateUser(request: Request) {
         password,
         username,
       },
+    })
+
+    await resend.emails.send({
+      from: 'devcode@resend.dev',
+      to: email,
+      subject: 'Confirm your email',
+      html: '',
+      react: EmailTemplate({
+        userFirstname: name,
+        tokenConfirm: uuidv4().toString(),
+      }),
     })
 
     return NextResponse.json({ create: 'Criado com sucesso' })

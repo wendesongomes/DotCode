@@ -6,9 +6,9 @@ import { SmileySad } from '@phosphor-icons/react'
 
 export async function Feed() {
   const { data: session } = useSession()
-
   if (session) {
     const posts = session.post.filter(({ parentId }) => parentId === null)
+
     return (
       <Posts posts={posts} user={session.user}>
         <div className="flex flex-col items-center justify-center gap-2 mt-4 text-stone-600">

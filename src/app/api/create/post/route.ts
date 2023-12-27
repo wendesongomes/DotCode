@@ -1,19 +1,47 @@
 import { PrismaClient } from '@prisma/client'
 import { NextResponse } from 'next/server'
+import { put } from '@vercel/blob'
+import { z } from 'zod'
 
 const prisma = new PrismaClient()
 
+const schema = z.object({
+  content: z.string(),
+  authorId: z.string().transform(Number),
+  parentId: z.string().transform(Number),
+})
+
 async function CreatePost(request: Request) {
-  const { content, id, postId } = await request.json()
+  const formData = await request.formData()
+  const username = formData.get('username')
+  const file = formData.get('file')
+
+  const data = Object.fromEntries(formData.entries())
+
   try {
-    await prisma.post.create({
-      data: {
-        content,
-        authorId: id,
-        published: true,
-        parentId: postId,
-      },
-    })
+    const parsed = schema.parse(data)
+
+    if (file instanceof File && file.name) {
+      const imageUrl = await put(`${username}/post/${file.name}`, file, {
+        access: 'public',
+      })
+
+      await prisma.post.create({
+        data: {
+          ...parsed,
+          published: true,
+          image: String(imageUrl.url),
+        },
+      })
+    } else {
+      await prisma.post.create({
+        data: {
+          ...parsed,
+          published: true,
+        },
+      })
+    }
+
     return NextResponse.json({ create: 'Criado com sucesso' })
   } catch (error) {
     return NextResponse.json({ error })

@@ -94,7 +94,9 @@ export default function Posts({ posts, user, children }: PostsProps) {
                           </DropdownMenuItem>
                           <DropdownMenuItem
                             className="outline-none flex gap-2 text-red-500 hover:bg- justify-center items-center text-sm p-1 rounded-md transition-all duration-150 cursor-pointer"
-                            onClick={() => DelPost(post.id, update)}
+                            onClick={() =>
+                              DelPost(post.id, update, String(post.image))
+                            }
                           >
                             <TrashSimple size={20} weight="fill" />
                             Delete
@@ -108,9 +110,14 @@ export default function Posts({ posts, user, children }: PostsProps) {
                   </p>
                 </div>
               </div>
-              <p className="whitespace-pre-wrap text-sm prose-slate">
-                {post.content}
-              </p>
+              <div className="flex flex-col gap-2">
+                <p className="whitespace-pre-wrap text-sm prose-slate">
+                  {post.content}
+                </p>
+                {post.image && (
+                  <img src={post.image} alt="" className="rounded-md" />
+                )}
+              </div>
               <Interactive
                 isLike={user.likes.some(({ postId }) => postId === post.id)}
                 isSave={user.saves.some(({ postId }) => postId === post.id)}
