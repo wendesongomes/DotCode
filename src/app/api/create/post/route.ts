@@ -22,7 +22,7 @@ async function CreatePost(request: Request) {
     const parsed = schema.parse(data)
 
     if (file) {
-      const imageUrl = await put(`${username}/post/${file.name}`, file, {
+      const imageUrl = await put(`${username}/post/${file}`, file, {
         access: 'public',
       })
 
