@@ -3,6 +3,7 @@ import './globals.css'
 import { Providers } from './provider'
 // eslint-disable-next-line
 import { Fira_Code } from 'next/font/google'
+import Head from 'next/head'
 
 const fira = Fira_Code({ subsets: ['latin'] })
 
