@@ -19,6 +19,9 @@ export default function RootLayout({
   return (
     <Providers>
       <html lang="en">
+        <Head>
+          <meta name="google-adsense-account" content="ca-pub-3303079752996254"></meta>
+        </Head>
         <body className={`${fira.className} overflow-x-hidden bg-sto`}>
           {children}
         </body>
